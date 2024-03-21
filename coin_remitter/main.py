@@ -74,6 +74,7 @@ class CoinRemitter:
             'api_key': self.api_key,
             'password': self.password
         })
+        print(data)
         return post(url.format(self.COIN), json=data).json()
     
     @staticmethod
@@ -96,11 +97,13 @@ class CoinRemitter:
             @wraps(func)
             def wrapper(*args, **kwargs):
                 # Extract and remove 'json_response' from kwargs if present
-                json_response = kwargs.pop('json_response', True)
+                json_response = kwargs.pop('json_response', False)
                 
                 # Execute the function
                 result = func(*args, **kwargs)
-                
+                print(f"{result=}")
+                print(f"{success_key=}")
+
                 # Handle the response
                 if json_response:
                     return result
@@ -108,7 +111,7 @@ class CoinRemitter:
                     return False
                 if isinstance(success_key, list):
                     return [r[success_key[0]] for r in result.get('data')]
-                return result.get(success_key)
+                return result.get("data", {}).get(success_key)
 
             return wrapper
         return decorator

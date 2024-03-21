@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='coin_remitter',
-    version='0.1.0',
+    version='0.1.1',
     author='glizzykingdreko',
     author_email='glizzykingdreko@example.com',
     description='A Python SDK for integrating with the CoinRemitter cryptocurrency payment gateway API.',
